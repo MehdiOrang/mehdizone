@@ -6,6 +6,10 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',  // Expose Vite on all network interfaces
+    port: 5173,       // Ensure this is the same as the port you're mapping to
+  },
   plugins: [
     vue(),
     vueDevTools(),

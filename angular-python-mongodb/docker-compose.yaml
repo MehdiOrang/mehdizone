@@ -1,22 +1,30 @@
 version: '3'
 services:
-  frontend:
+  angular-frontend:
     build:
-      context: ./frontend
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "80:80"
-    depends_on:
-      - backend
+    networks:
+      - mynetwork
 
-  backend:
+  python-backend:
     build:
-      context: ./backend
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "5000:5000"
     depends_on:
       - mongo
+    networks:
+      - mynetwork
 
   mongo:
     image: mongo:latest
-    ports:
-      - "27017:27017"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: overlay
